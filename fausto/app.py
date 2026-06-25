@@ -36,7 +36,6 @@ if "productos_dama" not in st.session_state:
     if datos_guardados and "productos_dama" in datos_guardados:
         st.session_state.productos_dama = datos_guardados["productos_dama"]
     else:
-        # Valores iniciales por defecto si el archivo no existe
         st.session_state.productos_dama = [
             {"id": "d1", "nombre": "Vestido Corto de Verano", "precio": 599.00, "desc": "Vestido fresco con estampado floral ideal para días soleados.", "img": "https://i.pinimg.com/originals/8c/eb/0b/8ceb0b97c7731617958e1f608d5c08cc.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
             {"id": "d2", "nombre": "Blusa Elegante de Satín", "precio": 450.00, "desc": "Blusa satinada de cuello en V ideal para oficina o eventos.", "img": "https://litb-cgis.rightinthebox.com/images/640x853/202507/bps/product/inc/ztnxrd1753345211622.jpg?fmt=webp&v=1", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
@@ -49,13 +48,12 @@ if "productos_dama" not in st.session_state:
             {"id": "d9", "nombre": "Pantalón Sastrero Elegante", "precio": 650.00, "desc": "Pantalón formal de pinzas ideal para un look de negocios.", "img": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
             {"id": "d10", "nombre": "Vestido Elegante de Noche", "precio": 899.00, "desc": "Vestido largo de fiesta con caída refinada y ajuste estilizado.", "img": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}}
         ]
-        guardar_datos()
+        
 
 if "productos_caballero" not in st.session_state:
     if datos_guardados and "productos_caballero" in datos_guardados:
         st.session_state.productos_caballero = datos_guardados["productos_caballero"]
     else:
-        # Valores iniciales por defecto si el archivo no existe
         st.session_state.productos_caballero = [
             {"id": "c1", "nombre": "Camisa Oxford Casual", "precio": 499.00, "desc": "Camisa de algodón premium de corte slim fit para diario.", "img": "https://www.unitam.com/media/catalog/product/c/a/camisa_oxford_gris_doblada_1.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
             {"id": "c2", "nombre": "Pantalón Chino Slim negro", "precio": 650.00, "desc": "Pantalón de gabardina suave de corte moderno semi-formal.", "img": "https://images.jackjones.com/12174152/3375430/003/jackjones-pantalonchinoslimfit-noire.jpg?v=1e4372fb4feb8b0a31fbe37163e53509", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
@@ -68,7 +66,9 @@ if "productos_caballero" not in st.session_state:
             {"id": "c9", "nombre": "Chaqueta Acolchada", "precio": 999.00, "desc": "Chaqueta térmica capitonada repelente al viento.", "img": "https://images.unsplash.com/photo-1544923246-77307dd654cb?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
             {"id": "c10", "nombre": "Camisa de Lino Manga Corta", "precio": 450.00, "desc": "Camisa relajada de lino transpirable de cuello campana.", "img": "https://dracko.ar/wp-content/uploads/2023/11/img_7057-600x750.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
         ]
-        guardar_datos()
+# Crear inventario inicial una sola vez
+if not os.path.exists(ARCHIVO):
+    guardar_datos()
 
 if "carrito" not in st.session_state:
     st.session_state.carrito = []
