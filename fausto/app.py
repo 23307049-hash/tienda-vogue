@@ -273,7 +273,7 @@ def mostrar_catalogo(lista_productos, tipo_catalogo):
                     with col_pop2:
                         if st.button("💳 Finalizar Compra", key=f"finalizar_{prod['id']}", use_container_width=True):
                             st.session_state.ultimo_agregado = None
-                            st.session_state.seccion = "Formulario de Envío"
+                            st.session_state.seccion = "Carrito"
                             st.rerun()
             st.markdown("<br><br>", unsafe_allow_html=True)
             
@@ -323,7 +323,7 @@ def mostrar_catalogo(lista_productos, tipo_catalogo):
                         with col_pop2:
                             if st.button("💳 Finalizar Compra", key=f"finalizar_{prod['id']}", use_container_width=True):
                                 st.session_state.ultimo_agregado = None
-                                st.session_state.seccion = "Formulario de Envío"
+                                st.session_state.seccion = "Carrito"
                                 st.rerun()
                 st.markdown("<br><br>", unsafe_allow_html=True)
 
