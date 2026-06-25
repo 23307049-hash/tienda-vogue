@@ -26,12 +26,50 @@ def cargar_datos():
     if os.path.exists(ARCHIVO):
         with open(ARCHIVO, "r", encoding="utf-8") as archivo:
             datos = json.load(archivo)
-        st.session_state.productos_dama = datos["productos_dama"]
-        st.session_state.productos_caballero = datos["productos_caballero"]
-        return True
-    return False
+        return datos
+    return None
 
-# --- INICIALIZACIÓN DEL ESTADO GLOBAL ---
+# --- INICIALIZACIÓN DEL ESTADO GLOBAL (PERSISTENTE AL REFRESH) ---
+datos_guardados = cargar_datos()
+
+if "productos_dama" not in st.session_state:
+    if datos_guardados and "productos_dama" in datos_guardados:
+        st.session_state.productos_dama = datos_guardados["productos_dama"]
+    else:
+        # Valores iniciales por defecto si el archivo no existe
+        st.session_state.productos_dama = [
+            {"id": "d1", "nombre": "Vestido Corto de Verano", "precio": 599.00, "desc": "Vestido fresco con estampado floral ideal para días soleados.", "img": "https://i.pinimg.com/originals/8c/eb/0b/8ceb0b97c7731617958e1f608d5c08cc.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "d2", "nombre": "Blusa Elegante de Satín", "precio": 450.00, "desc": "Blusa satinada de cuello en V ideal para oficina o eventos.", "img": "https://litb-cgis.rightinthebox.com/images/640x853/202507/bps/product/inc/ztnxrd1753345211622.jpg?fmt=webp&v=1", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "d3", "nombre": "Jeans High Rise Slim", "precio": 699.00, "desc": "Pantalón de mezclilla tiro alto con ajuste cómodo moldeador.", "img": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "d4", "nombre": "Chaqueta de Mezclilla", "precio": 799.00, "desc": "Chaqueta denim clásica con lavado claro y botones metálicos.", "img": "https://images.unsplash.com/photo-1610591951231-58887328a2d5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "d5", "nombre": "Falda Plisada Midi", "precio": 480.00, "desc": "Falda plisada de cintura alta, tiro elegante y caída suave.", "img": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "d6", "nombre": "Suéter de Punto Ligero", "precio": 520.00, "desc": "Suéter tejido ideal para las tardes frescas de otoño.", "img": "https://media.falabella.com/falabellaCL/143440147_01/public", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "d7", "nombre": "Ensamble Casual Largo", "precio": 399.00, "desc": "Cardigan ligero abierto, perfecto para combinar con básicos.", "img": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "d8", "nombre": "Top Corto Acanalado", "precio": 250.00, "desc": "Crop top básico elástico de cuello redondo.", "img": "https://detqhtv6m6lzl.cloudfront.net/HCLContenido/producto/FullImage/7506591000250-1.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "d9", "nombre": "Pantalón Sastrero Elegante", "precio": 650.00, "desc": "Pantalón formal de pinzas ideal para un look de negocios.", "img": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "d10", "nombre": "Vestido Elegante de Noche", "precio": 899.00, "desc": "Vestido largo de fiesta con caída refinada y ajuste estilizado.", "img": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}}
+        ]
+        guardar_datos()
+
+if "productos_caballero" not in st.session_state:
+    if datos_guardados and "productos_caballero" in datos_guardados:
+        st.session_state.productos_caballero = datos_guardados["productos_caballero"]
+    else:
+        # Valores iniciales por defecto si el archivo no existe
+        st.session_state.productos_caballero = [
+            {"id": "c1", "nombre": "Camisa Oxford Casual", "precio": 499.00, "desc": "Camisa de algodón premium de corte slim fit para diario.", "img": "https://www.unitam.com/media/catalog/product/c/a/camisa_oxford_gris_doblada_1.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "c2", "nombre": "Pantalón Chino Slim negro", "precio": 650.00, "desc": "Pantalón de gabardina suave de corte moderno semi-formal.", "img": "https://images.jackjones.com/12174152/3375430/003/jackjones-pantalonchinoslimfit-noire.jpg?v=1e4372fb4feb8b0a31fbe37163e53509", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "c3", "nombre": "Playera Polo Clásica", "precio": 350.00, "desc": "Playera tipo polo de algodón con cuello texturizado.", "img": "https://martinspolo.co/data/martins-polo-camiseta-tipo-polo-tela-fria-hombre-ref-1006-3-1580x1975.webp", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "c4", "nombre": "Sudadera con Capucha", "precio": 599.00, "desc": "Sudadera hoodie cómoda con bolsillo canguro frontal.", "img": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "c5", "nombre": "Chaqueta Bomber Negra", "precio": 899.00, "desc": "Chaqueta ligera estilo bomber con cierres reforzados.", "img": "https://www.bolf.es/hpeciai/49b49f5d03110139c40db57ebb00db86/spa_pl_Chaqueta-bomber-de-cuero-para-hombre-negro-Bolf-6671-89467_2.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "c6", "nombre": "Jeans Rectos Clásicos", "precio": 620.00, "desc": "Pantalón de mezclilla azul tradicional de corte recto.", "img": "https://pantalonesdemezclilla.mx/cdn/shop/files/Jeans-de-pierna-recta-para-hombre-estilo-clasico.png?v=1705709803", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "c7", "nombre": "Suéter de Cuello Alto", "precio": 550.00, "desc": "Suéter fino tejido de cuello alto para un estilo sofisticado.", "img": "https://i5-mx.walmartimages.com/mg/gm/3pp/asr/00b2cf45-6bfe-48ac-bc52-7d4289ced381.ffc6c2e813acd287daeb5304184c201c.jpeg?odnHeight=2000&odnWidth=2000&odnBg=ffffff", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "c8", "nombre": "Bermuda Casual de Lino", "precio": 380.00, "desc": "Bermuda fresca ideal para vacaciones o días calurosos.", "img": "https://i.pinimg.com/originals/eb/7b/56/eb7b56541e583fb8723bf610154d2f9a.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "c9", "nombre": "Chaqueta Acolchada", "precio": 999.00, "desc": "Chaqueta térmica capitonada repelente al viento.", "img": "https://images.unsplash.com/photo-1544923246-77307dd654cb?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+            {"id": "c10", "nombre": "Camisa de Lino Manga Corta", "precio": 450.00, "desc": "Camisa relajada de lino transpirable de cuello campana.", "img": "https://dracko.ar/wp-content/uploads/2023/11/img_7057-600x750.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
+        ]
+        guardar_datos()
+
 if "carrito" not in st.session_state:
     st.session_state.carrito = []
 
@@ -134,7 +172,7 @@ def verificar_y_alertar_stock(productos_dama, productos_caballero):
     productos_bajos = []
     for p in productos_dama + productos_caballero:
         for talla, cantidad in p["stock"].items():
-            if cantidad < 10: # Alerta si es menor a 10
+            if cantidad < 10: 
                 productos_bajos.append(f"- {p['nombre']} (Talla {talla}): {cantidad} rest.")
 
     if productos_bajos:
@@ -153,36 +191,6 @@ def verificar_y_alertar_stock(productos_dama, productos_caballero):
         except Exception as e:
             st.warning(f"No se pudo enviar la alerta de stock: {e}")
 
-# --- BASE DE DATOS COMPLETA CON 10 PRENDAS POR CATÁLOGO ---
-if "productos_dama" not in st.session_state:
-    if not cargar_datos():
-        st.session_state.productos_dama = [
-            {"id": "d1", "nombre": "Vestido Corto de Verano", "precio": 599.00, "desc": "Vestido fresco con estampado floral ideal para días soleados.", "img": "https://i.pinimg.com/originals/8c/eb/0b/8ceb0b97c7731617958e1f608d5c08cc.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "d2", "nombre": "Blusa Elegante de Satín", "precio": 450.00, "desc": "Blusa satinada de cuello en V ideal para oficina o eventos.", "img": "https://litb-cgis.rightinthebox.com/images/640x853/202507/bps/product/inc/ztnxrd1753345211622.jpg?fmt=webp&v=1", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "d3", "nombre": "Jeans High Rise Slim", "precio": 699.00, "desc": "Pantalón de mezclilla tiro alto con ajuste cómodo moldeador.", "img": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "d4", "nombre": "Chaqueta de Mezclilla", "precio": 799.00, "desc": "Chaqueta denim clásica con lavado claro y botones metálicos.", "img": "https://images.unsplash.com/photo-1610591951231-58887328a2d5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "d5", "nombre": "Falda Plisada Midi", "precio": 480.00, "desc": "Falda plisada de cintura alta, tiro elegante y caída suave.", "img": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "d6", "nombre": "Suéter de Punto Ligero", "precio": 520.00, "desc": "Suéter tejido ideal para las tardes frescas de otoño.", "img": "https://media.falabella.com/falabellaCL/143440147_01/public", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "d7", "nombre": "Ensamble Casual Largo", "precio": 399.00, "desc": "Cardigan ligero abierto, perfecto para combinar con básicos.", "img": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "d8", "nombre": "Top Corto Acanalado", "precio": 250.00, "desc": "Crop top básico elástico de cuello redondo.", "img": "https://detqhtv6m6lzl.cloudfront.net/HCLContenido/producto/FullImage/7506591000250-1.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "d9", "nombre": "Pantalón Sastrero Elegante", "precio": 650.00, "desc": "Pantalón formal de pinzas ideal para un look de negocios.", "img": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "d10", "nombre": "Vestido Elegante de Noche", "precio": 899.00, "desc": "Vestido largo de fiesta con caída refinada y ajuste estilizado.", "img": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}}
-        ]
-
-if "productos_caballero" not in st.session_state:
-    if not os.path.exists(ARCHIVO):
-        st.session_state.productos_caballero = [
-            {"id": "c1", "nombre": "Camisa Oxford Casual", "precio": 499.00, "desc": "Camisa de algodón premium de corte slim fit para diario.", "img": "https://www.unitam.com/media/catalog/product/c/a/camisa_oxford_gris_doblada_1.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "c2", "nombre": "Pantalón Chino Slim negro", "precio": 650.00, "desc": "Pantalón de gabardina suave de corte moderno semi-formal.", "img": "https://images.jackjones.com/12174152/3375430/003/jackjones-pantalonchinoslimfit-noire.jpg?v=1e4372fb4feb8b0a31fbe37163e53509", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "c3", "nombre": "Playera Polo Clásica", "precio": 350.00, "desc": "Playera tipo polo de algodón con cuello texturizado.", "img": "https://martinspolo.co/data/martins-polo-camiseta-tipo-polo-tela-fria-hombre-ref-1006-3-1580x1975.webp", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "c4", "nombre": "Sudadera con Capucha", "precio": 599.00, "desc": "Sudadera hoodie cómoda con bolsillo canguro frontal.", "img": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "c5", "nombre": "Chaqueta Bomber Negra", "precio": 899.00, "desc": "Chaqueta ligera estilo bomber con cierres reforzados.", "img": "https://www.bolf.es/hpeciai/49b49f5d03110139c40db57ebb00db86/spa_pl_Chaqueta-bomber-de-cuero-para-hombre-negro-Bolf-6671-89467_2.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "c6", "nombre": "Jeans Rectos Clásicos", "precio": 620.00, "desc": "Pantalón de mezclilla azul tradicional de corte recto.", "img": "https://pantalonesdemezclilla.mx/cdn/shop/files/Jeans-de-pierna-recta-para-hombre-estilo-clasico.png?v=1705709803", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "c7", "nombre": "Suéter de Cuello Alto", "precio": 550.00, "desc": "Suéter fino tejido de cuello alto para un estilo sofisticado.", "img": "https://i5-mx.walmartimages.com/mg/gm/3pp/asr/00b2cf45-6bfe-48ac-bc52-7d4289ced381.ffc6c2e813acd287daeb5304184c201c.jpeg?odnHeight=2000&odnWidth=2000&odnBg=ffffff", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "c8", "nombre": "Bermuda Casual de Lino", "precio": 380.00, "desc": "Bermuda fresca ideal para vacaciones o días calurosos.", "img": "https://i.pinimg.com/originals/eb/7b/56/eb7b56541e583fb8723bf610154d2f9a.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "c9", "nombre": "Chaqueta Acolchada", "precio": 999.00, "desc": "Chaqueta térmica capitonada repelente al viento.", "img": "https://images.unsplash.com/photo-1544923246-77307dd654cb?w=400", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-            {"id": "c10", "nombre": "Camisa de Lino Manga Corta", "precio": 450.00, "desc": "Camisa relajada de lino transpirable de cuello campana.", "img": "https://dracko.ar/wp-content/uploads/2023/11/img_7057-600x750.jpg", "stock": {"Chico": 10, "Mediano": 10, "Grande": 10}},
-        ]
 
 # --- BARRA DE NAVEGACIÓN ---
 col_n1, col_n2, col_n3, col_n4, col_n5 = st.columns(5)
@@ -265,7 +273,7 @@ def mostrar_catalogo(lista_productos, tipo_catalogo):
                     with col_pop2:
                         if st.button("💳 Finalizar Compra", key=f"finalizar_{prod['id']}", use_container_width=True):
                             st.session_state.ultimo_agregado = None
-                            st.session_state.seccion = "Carrito"
+                            st.session_state.seccion = "Formulario de Envío"
                             st.rerun()
             st.markdown("<br><br>", unsafe_allow_html=True)
             
@@ -383,7 +391,7 @@ elif st.session_state.seccion == "Carrito":
                 st.rerun()
 
 elif st.session_state.seccion == "Formulario de Envío":
-    st.title("📦 Datos de Envío y Facturación")
+    st.title("📦 Datos de Envío")
     st.markdown("---")
     nombre_completo = st.text_input("Nombre Completo:")
     col_dir1, col_dir2 = st.columns([3, 1])
@@ -430,29 +438,18 @@ elif st.session_state.seccion == "Formulario de Envío":
                         if p["id"] == id_producto:
                             p["stock"][talla_comprada] -= cantidad_comprada
 
-                # Envío de correo al Administrador
+                # Guardar el inventario descontado en el archivo JSON de inmediato
+                guardar_datos()
+
+                # Envío de correos
                 enviar_alerta_admin(
-                    nombre_completo,
-                    correo,
-                    telefono,
-                    st.session_state.carrito,
-                    calle,
-                    codigo_postal,
-                    municipio,
-                    estado
+                    nombre_completo, correo, telefono,
+                    st.session_state.carrito, calle, codigo_postal, municipio, estado
                 )
-
-                # NUEVO: Envío de ticket al Comprador
                 enviar_ticket_comprador(
-                    nombre_completo,
-                    correo,
-                    st.session_state.carrito,
-                    calle,
-                    codigo_postal,
-                    municipio,
-                    estado
+                    nombre_completo, correo, st.session_state.carrito,
+                    calle, codigo_postal, municipio, estado
                 )
-
                 verificar_y_alertar_stock(
                     st.session_state.productos_dama, 
                     st.session_state.productos_caballero
